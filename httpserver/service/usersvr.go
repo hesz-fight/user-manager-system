@@ -11,7 +11,7 @@ type UserServie struct {
 	userDao *dao.UserDao
 }
 
-func NewUserHnadler(ctx context.Context) *UserServie {
+func NewUserService(ctx context.Context) *UserServie {
 	userDao := dao.NewUserDao(global.DBEngine)
 	return &UserServie{
 		ctx:     ctx,

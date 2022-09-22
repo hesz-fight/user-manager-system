@@ -2,6 +2,7 @@ package router
 
 import (
 	"learn/user-manager-system/global"
+	v1 "learn/user-manager-system/router/v1"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,11 +15,12 @@ func NewRouter() *gin.Engine {
 		engine.Use(gin.Recovery())
 	}
 
+	userHandler := v1.NewUserHnadler()
 	engine.Group("api/v1")
 	{
-		engine.POST("/user/login")
-		engine.POST("/user/update/nickname")
-		engine.POST("/user/update/profile")
+		engine.POST("/user/login", userHandler.Login)
+		engine.POST("/user/update/nickname", userHandler.UpdateNickname)
+		engine.POST("/user/update/profile", userHandler.UpdateProfile)
 	}
 
 	return engine

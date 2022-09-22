@@ -14,7 +14,7 @@ func NewUserDao(engine *gorm.DB) *UserDao {
 	return &UserDao{engine: engine}
 }
 
-func (u *UserDao) GetByUsername() (*model.User, error) {
+func (u *UserDao) GetByUsername(username string, password string) (*model.User, error) {
 	return nil, nil
 }
 
