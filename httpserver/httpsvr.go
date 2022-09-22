@@ -1,9 +1,15 @@
 package main
 
 import (
+	"log"
+	"net/http"
+	"time"
+
 	"learn/user-manager-system/global"
 	"learn/user-manager-system/pkg/setting"
-	"log"
+	"learn/user-manager-system/router"
+
+	"github.com/gin-gonic/gin"
 )
 
 type httpsvr struct {
@@ -19,7 +25,15 @@ func (h *httpsvr) Init() {
 }
 
 func (h *httpsvr) Run() {
-
+	gin.SetMode(global.ServerSetting.RunMode)
+	router := router.NewRouter()
+	server := &http.Server{
+		Addr:           "127.0.0.1" + ":" + global.ServerSetting.HttpPort,
+		Handler:        router,
+		ReadTimeout:    global.ServerSetting.ReadTimeout * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	server.ListenAndServe()
 }
 
 func initSetting() error {
