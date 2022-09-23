@@ -7,8 +7,8 @@ import (
 )
 
 type header struct {
-	PkgType int `json:"pkg_type"`
-	Length  int `json:"length"`
+	ParamType int `json:"param_type"`
+	Length    int `json:"length"`
 }
 
 const MaxBufSize = 4096
@@ -18,10 +18,10 @@ type transfer struct {
 	Conn net.Conn
 }
 
-func (t *transfer) Write(pkgType int, data []byte) error {
+func (t *transfer) Write(ParamType int, data []byte) error {
 	headerObj := &header{
-		PkgType: pkgType,
-		Length:  len(data),
+		ParamType: ParamType,
+		Length:    len(data),
 	}
 	headerByte, err := json.Marshal(headerObj)
 	if err != nil {
@@ -59,5 +59,5 @@ func (t *transfer) Read() (int, []byte, error) {
 		return 0, []byte{}, err
 	}
 
-	return h.PkgType, t.Buf[:h.Length], nil
+	return h.ParamType, t.Buf[:h.Length], nil
 }
