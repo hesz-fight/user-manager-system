@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"learn/user-manager-system/global"
-	"learn/user-manager-system/pkg/logger"
-	"learn/user-manager-system/pkg/setting"
-	"learn/user-manager-system/router"
+	"learn/user-manager-system/httpsvr/global"
+	"learn/user-manager-system/httpsvr/pkg/logger"
+	"learn/user-manager-system/httpsvr/pkg/setting"
+	"learn/user-manager-system/httpsvr/router"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/natefinch/lumberjack.v2"

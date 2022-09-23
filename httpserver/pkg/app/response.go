@@ -1,7 +1,7 @@
 package app
 
 import (
-	"learn/user-manager-system/pkg/errcode"
+	"learn/user-manager-system/httpsvr/pkg/errcode"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package router
 
 import (
-	"learn/user-manager-system/global"
-	v1 "learn/user-manager-system/router/v1"
+	"learn/user-manager-system/httpsvr/global"
+	v1 "learn/user-manager-system/httpsvr/router/v1"
 
 	"github.com/gin-gonic/gin"
 )

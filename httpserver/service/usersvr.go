@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"learn/user-manager-system/dao"
-	"learn/user-manager-system/global"
+	"learn/user-manager-system/httpsvr/dao"
+	"learn/user-manager-system/httpsvr/global"
 )
 
 type UserServie struct {

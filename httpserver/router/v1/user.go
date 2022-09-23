@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"learn/user-manager-system/global"
-	"learn/user-manager-system/pkg/app"
-	"learn/user-manager-system/pkg/errcode"
-	"learn/user-manager-system/service"
+	"learn/user-manager-system/httpsvr/global"
+	"learn/user-manager-system/httpsvr/pkg/app"
+	"learn/user-manager-system/httpsvr/pkg/errcode"
+	"learn/user-manager-system/httpsvr/service"
 
 	"github.com/gin-gonic/gin"
 )

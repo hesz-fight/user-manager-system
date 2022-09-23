@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"learn/user-manager-system/model"
+	"learn/user-manager-system/httpsvr/model"
 
 	"github.com/jinzhu/gorm"
 )
