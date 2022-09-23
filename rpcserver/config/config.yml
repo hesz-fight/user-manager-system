@@ -1,0 +1,29 @@
+# 服务器配置
+Server:
+  RpcPort: 9000
+  ReadTimeout: 60
+  WriteTimeout: 60
+# 应用配置
+App:
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log
+# 数据库配置
+Database:
+  DBType: mysql
+  Username: root
+  Password: heszmysql666
+  Host: 192.168.211.130
+  DBName: blog_service
+  TablePrefix: blog_
+  Charset: utf8
+  ParseTime: True
+  MaxIdleConns: 10
+  MaxOpenConns: 30
+
+Redis:
+  Host: "192.168.211.130"
+  Port: 6379
+  MaxIdle: 8
+  MaxActive: 0
+  IdleTimeout: 30
