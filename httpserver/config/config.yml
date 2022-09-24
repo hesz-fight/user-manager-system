@@ -1,7 +1,10 @@
 # 服务器配置
 Server:
   RunMode: debug
-  HttpPort: 8000
+  HTTPHost: 127.0.0.1
+  HTTPPort: 8000
+  RPCHost: 127.0.0.1
+  RPCPort: 9000
   ReadTimeout: 60
   WriteTimeout: 60
 # 应用配置
@@ -18,15 +21,3 @@ App:
     - .jpg
     - .jpeg
     - .png
-# 数据库配置
-Database:
-  DBType: mysql
-  Username: root
-  Password: heszmysql666
-  Host: 192.168.211.130
-  DBName: blog_service
-  TablePrefix: blog_
-  Charset: utf8
-  ParseTime: True
-  MaxIdleConns: 10
-  MaxOpenConns: 30

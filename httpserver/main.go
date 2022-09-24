@@ -8,6 +8,7 @@ import (
 	"learn/user-manager-system/httpsvr/global"
 	"learn/user-manager-system/httpsvr/pkg/logger"
 	"learn/user-manager-system/httpsvr/pkg/setting"
+	"learn/user-manager-system/httpsvr/pkg/simrpc"
 	"learn/user-manager-system/httpsvr/router"
 
 	"github.com/gin-gonic/gin"
@@ -21,11 +22,11 @@ func (h *httpsvr) Init() {
 	if err := initSetting(); err != nil {
 		log.Fatal("init setting error: ", err)
 	}
-	if err := initDB(); err != nil {
-		log.Fatal("init setting error: ", err)
-	}
 	if err := initLog(); err != nil {
 		log.Fatal("init log error: ", err)
+	}
+	if err := initClientPool(); err != nil {
+		log.Fatal("init client error: ", err)
 	}
 }
 
@@ -33,9 +34,10 @@ func (h *httpsvr) Run() {
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := router.NewRouter()
 	server := &http.Server{
-		Addr:           "127.0.0.1" + ":" + global.ServerSetting.HttpPort,
+		Addr:           global.ServerSetting.HTTPPort + ":" + global.ServerSetting.HTTPPort,
 		Handler:        router,
 		ReadTimeout:    global.ServerSetting.ReadTimeout * time.Second,
+		WriteTimeout:   global.ServerSetting.WriteTimeout * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 	server.ListenAndServe()
@@ -53,18 +55,6 @@ func initSetting() error {
 		return err
 	}
 
-	if err = s.ReadSection("Database", &global.DatabaseSetting); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func initDB() error {
-	return nil
-}
-
-func initRedis() error {
 	return nil
 }
 
@@ -80,6 +70,16 @@ func initLog() error {
 	}
 	global.LogLogger = logger.NerLogger(writer, "", log.LstdFlags)
 
+	return nil
+}
+
+func initClientPool() error {
+	var err error
+	address := global.ServerSetting.RPCHost + ":" + global.ServerSetting.RPCPort
+	global.ClientPool, err = simrpc.NewClientPool(100, "tcp", address)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

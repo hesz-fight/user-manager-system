@@ -1,14 +1,5 @@
 package proto
 
-const (
-	LoginRequest = iota + 1
-	LoginResponse
-	UpdateNicknameRequest
-	UpdateNicknameResponse
-	UpdateProfileRequest
-	UpdateProfileResponse
-)
-
 type LoginRequestParam struct {
 	Username string `json:"username"`
 	Password string `json:"password"`

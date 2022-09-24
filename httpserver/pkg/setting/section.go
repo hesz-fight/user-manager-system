@@ -4,7 +4,10 @@ import "time"
 
 type ServerSetting struct {
 	RunMode      string
-	HttpPort     string
+	HTTPHost     string
+	HTTPPort     string
+	RPCHost      string
+	RPCPort      string
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 }
@@ -19,17 +22,4 @@ type AppSetting struct {
 	UploadServerUrl      string
 	UploadImageMaxSize   int
 	UploadImageAllowExts []string
-}
-
-type DatabaseSetting struct {
-	DBType       string
-	UserName     string
-	Password     string
-	Host         string
-	DBName       string
-	TablePrefix  string
-	Charset      string
-	ParseTime    bool
-	MaxIdleConns int
-	MaxOpenConns int
 }

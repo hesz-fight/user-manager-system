@@ -9,8 +9,7 @@ import (
 	"learn/user-manager-system/rpcsvr/pkg/logger"
 	"learn/user-manager-system/rpcsvr/pkg/setting"
 	"learn/user-manager-system/rpcsvr/pkg/simrpc"
-	"learn/user-manager-system/rpcsvr/proto"
-	"learn/user-manager-system/rpcsvr/router"
+	"learn/user-manager-system/rpcsvr/service"
 
 	"github.com/garyburd/redigo/redis"
 	"github.com/jinzhu/gorm"
@@ -113,8 +112,8 @@ func initLog() error {
 }
 
 func initRpc() {
-	svr := &router.UserHandler{}
-	err := simrpc.RegisterRequest(svr, "Login", proto.LoginRequest, proto.LoginResponse)
+	svr := &service.UserService{}
+	err := simrpc.RegisterRequest(svr, "UserService", "Login")
 	if err != nil {
 		log.Fatal("register method error: ", err)
 	}
