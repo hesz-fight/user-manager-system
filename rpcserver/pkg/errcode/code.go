@@ -1,10 +1,12 @@
 package errcode
 
 var (
-	Success       = NewError(0, "成功")
-	ServerError   = NewError(10000000, "服务内部错误")
-	InvalidParams = NewError(10000001, "入参错误")
-	NotFound      = NewError(10000002, "找不到")
+	Success             = NewError(0, "成功")
+	ServerError         = NewError(10000000, "服务内部错误")
+	InvalidParams       = NewError(10000001, "入参错误")
+	NotFound            = NewError(10000002, "找不到")
+	ErrorMehodHasExist  = NewError(10000003, "方法已注册")
+	ErrorWrongMehodName = NewError(10000003, "方法已注册")
 )
 
 // 业务层错误码

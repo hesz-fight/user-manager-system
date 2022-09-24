@@ -18,9 +18,9 @@ type transfer struct {
 	Conn net.Conn
 }
 
-func (t *transfer) Write(ParamType int, data []byte) error {
+func (t *transfer) Write(paramType int, data []byte) error {
 	headerObj := &header{
-		ParamType: ParamType,
+		ParamType: paramType,
 		Length:    len(data),
 	}
 	headerByte, err := json.Marshal(headerObj)

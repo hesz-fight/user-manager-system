@@ -1,6 +1,7 @@
 # 服务器配置
 Server:
-  RpcPort: 9000
+  Host: 127.0.0.1
+  Port: 9000
   ReadTimeout: 60
   WriteTimeout: 60
 # 应用配置

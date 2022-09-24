@@ -8,6 +8,9 @@ import (
 	"learn/user-manager-system/rpcsvr/global"
 	"learn/user-manager-system/rpcsvr/pkg/logger"
 	"learn/user-manager-system/rpcsvr/pkg/setting"
+	"learn/user-manager-system/rpcsvr/pkg/simrpc"
+	"learn/user-manager-system/rpcsvr/proto"
+	"learn/user-manager-system/rpcsvr/router"
 
 	"github.com/garyburd/redigo/redis"
 	"github.com/jinzhu/gorm"
@@ -30,10 +33,14 @@ func (h *rpcsvr) Init() {
 	if err := initLog(); err != nil {
 		log.Fatal("init log error: ", err)
 	}
+
 }
 
 func (h *rpcsvr) Run() {
-
+	address := global.ServerSetting.Host + ":" + global.ServerSetting.Port
+	if err := simrpc.ListenAndServe(address); err != nil {
+		global.LogLogger.Errorf("server run error: ", err)
+	}
 }
 
 func initSetting() error {
@@ -103,6 +110,14 @@ func initLog() error {
 	global.LogLogger = logger.NerLogger(writer, "", log.LstdFlags)
 
 	return nil
+}
+
+func initRpc() {
+	svr := &router.UserHandler{}
+	err := simrpc.RegisterRequest(svr, "Login", proto.LoginRequest, proto.LoginResponse)
+	if err != nil {
+		log.Fatal("register method error: ", err)
+	}
 }
 
 func main() {

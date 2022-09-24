@@ -28,15 +28,14 @@ type methodObj struct {
 
 var RequestMap = make(map[int]*Request)
 
-func RegisterRequest(svr interface{}, methodName string, paramType int, rspIndex int) {
+func RegisterRequest(svr interface{}, methodName string, paramType int, rspIndex int) error {
 	if _, ok := RequestMap[paramType]; ok {
-		return
+		return errcode.ErrorMehodHasExist
 	}
-
 	method, exist := reflect.TypeOf(svr).MethodByName(methodName)
 	if !exist {
 		global.LogLogger.Errorf("method %s doen not exist.", methodName)
-		return
+		return errcode.ErrorWrongMehodName
 	}
 	request := &Request{
 		ParamType:  paramType,
@@ -49,8 +48,9 @@ func RegisterRequest(svr interface{}, methodName string, paramType int, rspIndex
 			RspTyp:   method.Type.In(2),
 		},
 	}
-
 	RequestMap[paramType] = request
+
+	return nil
 }
 
 func ListenAndServe(address string) error {
@@ -58,7 +58,6 @@ func ListenAndServe(address string) error {
 	if err != nil {
 		return err
 	}
-
 	for {
 		conn, err := lst.Accept()
 		if err != nil {
