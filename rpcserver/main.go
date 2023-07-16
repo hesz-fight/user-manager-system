@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"time"
 
 	"learn/user-manager-system/rpcsvr/global"
@@ -123,4 +124,7 @@ func main() {
 	h := rpcsvr{}
 	h.Init()
 	h.Run()
+
+	a := math.MinInt
+	fmt.Println(a)
 }

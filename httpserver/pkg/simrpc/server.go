@@ -2,10 +2,7 @@ package simrpc
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"learn/user-manager-system/rpcsvr/global"
-	"learn/user-manager-system/rpcsvr/pkg/errcode"
 	"net"
 	"reflect"
 )
@@ -35,12 +32,11 @@ func getServiceMethod(service string, method string) string {
 func RegisterRequest(svr interface{}, serviceName string, methodName string) error {
 	serviceMethod := getServiceMethod(serviceName, methodName)
 	if _, ok := RequestMap[serviceMethod]; ok {
-		return errors.New("method already existed")
+		return ErrorMethodHasExist
 	}
 	method, exist := reflect.TypeOf(svr).MethodByName(methodName)
 	if !exist {
-		global.LogLogger.Errorf("method %s doen not exist.", methodName)
-		return errcode.ErrorWrongMehodName
+		return ErrorMehodNotFound
 	}
 	request := &Request{
 		ServiceMethod: serviceMethod,
@@ -82,11 +78,9 @@ func (s *serverObj) receiveRequest() {
 	for {
 		serviceMethod, data, err := s.Trans.Read()
 		if err != nil {
-			global.LogLogger.Errorf("handleRequest error: %s", err)
 			return
 		}
 		if err := s.handleRequest(serviceMethod, data); err != nil {
-			global.LogLogger.Errorf("handleRequest error: %s", err)
 			return
 		}
 	}
@@ -95,7 +89,7 @@ func (s *serverObj) receiveRequest() {
 func (s *serverObj) handleRequest(serviceMethod string, data []byte) error {
 	request, ok := RequestMap[serviceMethod]
 	if !ok {
-		return errcode.InvalidParams
+		return ErrorInvalidParams
 	}
 	method := request.MethodObj
 	f := method.Method.Func

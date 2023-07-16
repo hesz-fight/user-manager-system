@@ -19,7 +19,6 @@ type User struct {
 }
 
 type UpdateNicknameRequestParam struct {
-	Uid      string `json:"uid"`
 	Cookie   string `json:"cookie"`
 	Nickname string `json:"nickname"`
 }
@@ -30,7 +29,6 @@ type UpdateNicknameResponseParam struct {
 }
 
 type UpdateProfileRequestParam struct {
-	Uid     string `json:"uid"`
 	Cookie  string `json:"cookie"`
 	Profile string `json:"profile"`
 }

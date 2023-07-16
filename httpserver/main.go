@@ -87,4 +87,15 @@ func main() {
 	h := httpsvr{}
 	h.Init()
 	h.Run()
+	// s := "the  sky is bule"
+	// t := strings.Split(s, " ")
+	// fmt.Println(len(t))
+	// for _, c := range t {
+	// 	fmt.Println(c)
+	// }
+	// sl := []int{}
+	// sl = sl[:len(sl)-1]
 }
+
+// 0-1背包：每个物品数量为1，只能选择放入或不放入背包
+//

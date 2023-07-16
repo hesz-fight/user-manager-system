@@ -13,7 +13,10 @@ func NewUserClient() *UserClient {
 }
 
 func (u *UserClient) Login(username string, password string) (*proto.LoginResponseParam, error) {
-	req := &proto.LoginRequestParam{}
+	req := &proto.LoginRequestParam{
+		Username: username,
+		Password: password,
+	}
 	rsp := &proto.LoginResponseParam{}
 	err := global.ClientPool.Call("UserService.Login", req, rsp)
 	if err != nil {
@@ -23,8 +26,11 @@ func (u *UserClient) Login(username string, password string) (*proto.LoginRespon
 	return rsp, nil
 }
 
-func (u *UserClient) UpdateNickname(username string, password string) (*proto.UpdateNicknameResponseParam, error) {
-	req := &proto.UpdateNicknameRequestParam{}
+func (u *UserClient) UpdateNickname(nickname string, cookie string) (*proto.UpdateNicknameResponseParam, error) {
+	req := &proto.UpdateNicknameRequestParam{
+		Nickname: nickname,
+		Cookie:   cookie,
+	}
 	rsp := &proto.UpdateNicknameResponseParam{}
 	if err := global.ClientPool.Call("UserService.UpdateNickname", req, rsp); err != nil {
 		return nil, err
@@ -33,9 +39,13 @@ func (u *UserClient) UpdateNickname(username string, password string) (*proto.Up
 	return rsp, nil
 }
 
-func (u *UserClient) UpdateProfile(username string, password string) (*proto.LoginResponseParam, error) {
-	req := &proto.LoginRequestParam{}
-	rsp := &proto.LoginResponseParam{}
+func (u *UserClient) UpdateProfile(profile string, cookie string) (*proto.UpdateProfileResponseParam, error) {
+	req := &proto.UpdateProfileRequestParam{
+		Profile: profile,
+		Cookie:  cookie,
+	}
+
+	rsp := &proto.UpdateProfileResponseParam{}
 	if err := global.ClientPool.Call("UserService.UpdateProfile", req, rsp); err != nil {
 		return nil, err
 	}

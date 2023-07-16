@@ -1,21 +1,37 @@
 package model
 
 type LoginHttpReq struct {
-	Username string
-	Password string
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 // for show
 type LoginHttpRsp struct {
-	Username string
-	Nickname string
-	Profile  string
+	Code     int       `json:"code"`
+	Msg      int       `json:"msg"`
+	UserInfo *UserInfo `json:"user_info"`
+}
+
+type UserInfo struct {
+	Username string `json:"username"`
+	Nickname string `json:"nickname"`
+	Profile  string `json:"profile"`
 }
 
 type UpdateNicknameReq struct {
-	Nickname string
+	Nickname string `json:"nickname"`
+}
+
+type UpdateNicknameRsp struct {
+	Code int `json:"code"`
+	Msg  int `json:"msg"`
 }
 
 type UpdateProfileReq struct {
-	Profile string
+	Profile string `json:"profile"`
+}
+
+type UpdateProfileRsp struct {
+	Code int `json:"code"`
+	Msg  int `json:"msg"`
 }
